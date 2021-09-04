@@ -1,0 +1,1 @@
+nohup python -u GridCreation.py > grid_creation_nohup.out 2>&1 &

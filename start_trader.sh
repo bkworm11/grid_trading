@@ -1,0 +1,1 @@
+nohup python -u GridTrader.py > grid_trader_nohup.out 2>&1 &
