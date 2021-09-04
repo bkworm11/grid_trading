@@ -1,0 +1,4 @@
+*.pyc
+test.ipynb
+log.txt
+defs.py

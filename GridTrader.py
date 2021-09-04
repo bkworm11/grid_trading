@@ -15,15 +15,15 @@ class OandaGrid():
 
     def trade(self):
 
-        pending_orders_url = f"{defs.OANDA_URL}/accounts/{defs.ACCOUNT_ID}/pendingOrders"
-        pending_trade_response = self.session.get(pending_orders_url, headers=defs.SECURE_HEADER)
-        pending_order_list = pending_trade_response.json()["orders"]
         logger.info(f"take_profit_list: {self.take_profiit_list}")
+        open_trade_url = f"{defs.OANDA_URL}/accounts/{defs.ACCOUNT_ID}/openTrades"
+        open_trade_response = self.session.get(open_trade_url,headers=defs.SECURE_HEADER)
+        open_trade_list = open_trade_response.json()["trades"]
         
-        for pending_order in pending_order_list:
-            if pending_order["type"] == "TAKE_PROFIT":
-                self.take_profiit_list.append(pending_order["id"])
-                self.take_profiit_list = list(set(self.take_profiit_list))
+        for open_trade in open_trade_list:
+            id = open_trade["takeProfitOrder"]["id"]
+            self.take_profiit_list.append(id)
+            self.take_profiit_list = list(set(self.take_profiit_list))
                 
         for take_profit_order in self.take_profiit_list:
             get_url = f"{defs.OANDA_URL}/accounts/{defs.ACCOUNT_ID}/orders/{take_profit_order}"
